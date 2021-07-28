@@ -10,30 +10,27 @@ package com.jobep.classroster.controller;
  * @author powel
  */
 import com.jobep.classroster.ui.*;
-
+import com.jobep.classroster.dao.*;
+import com.jobep.classroster.dto.Student;
 public class ClassRosterController {
     
+    private ClassRosterView view = new ClassRosterView();
+    private ClassRosterDao dao = new ClassRosterDaoFileImpl();
     private UserIO io = new UserIOConsoleImpl();
     
     public void run(){
         boolean keepGoing = true;
         int menuSelection = 0;
         while(keepGoing){
-            io.print("Main Menu");
-            io.print("1. List Student IDs");
-            io.print("2. Create New Student");
-            io.print("3. View a Student");
-            io.print("4. Remove a Student");
-            io.print("5. Exit");
             
-            menuSelection = io.readInt("Please select from the" + " above choices.",1,5);
+            menuSelection = getMenuSelection();
             
             switch(menuSelection){
                 case 1:
                     io.print("LIST STUDENTS");
                     break;
                 case 2:
-                    io.print("CREATE STUDENT");
+                    createStudent();
                     break;
                 case 3:
                     io.print("VIEW STUDENT");
@@ -48,6 +45,17 @@ public class ClassRosterController {
                     io.print("UNKNOWN COMMAND");
             }
         }
-    io.print("GOODDBYE");
+    io.print("GOODBYE");
+    }
+    
+    private int getMenuSelection(){
+        return view.printMenuAndGetSelection();
+    }
+    
+    private void createStudent(){
+        view.displayCreateStudentBanner();
+        Student newStudent = view.getNewStudentInfo();
+        dao.addStudent(newStudent.getStudentId(),newStudent);
+        view.displayCreateSuccessBanner();
     }
 }

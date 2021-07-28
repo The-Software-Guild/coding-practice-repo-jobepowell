@@ -9,6 +9,16 @@ package com.jobep.classroster.dao;
  *
  * @author powel
  */
-public class ClassRosterDao {
+import com.jobep.classroster.dto.Student;
+import java.util.List;
+
+public interface ClassRosterDao {
+    Student addStudent(String studentId, Student student);
+    
+    List<Student> getAllStudents();
+    
+    Student getStudent(String studentId);
+    
+    Student removeStudent(String studentId);
     
 }
