@@ -38,6 +38,15 @@ public class ClassRosterView {
     public void displayCreateStudentBanner(){
         io.print("=== Create Student ===");
     }
+    public void displayDisplayAllBanner(){
+        io.print("=== Display All Students ===");
+    }
+    public void displayDisplayStudentBanner(){
+        io.print("=== Display Student ===");
+    }
+    public void displayRemoveStudentBanner(){
+        io.print("=== Remove Student ===");
+    }
     public void displayCreateSuccessBanner(){
         io.readString("Student successfully created. Please hit enter to continue");
     }
@@ -47,12 +56,6 @@ public class ClassRosterView {
             io.print(studentInfo);
         }
         io.readString("Please hit enter to continue.");
-    }
-    public void displayDisplayAllBanner(){
-        io.print("=== Display All Students ===");
-    }
-    public void displayDisplayStudentBanner(){
-        io.print("=== Display Student ===");
     }
     public String getStudentIdChoice(){
         return io.readString("Please enter the Student ID.");
@@ -64,6 +67,14 @@ public class ClassRosterView {
             io.print(student.getCohort());
             io.print("");
         } else {
+            io.print("No such student.");
+        }
+        io.readString("Please hit enter to continue.");
+    }
+    public void displayRemoveResult(Student studentRecord){
+        if(studentRecord != null){
+            io.print("Student successfully removed.");
+        }else{
             io.print("No such student.");
         }
         io.readString("Please hit enter to continue.");
