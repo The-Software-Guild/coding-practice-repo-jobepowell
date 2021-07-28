@@ -12,7 +12,10 @@ package com.jobep.classroster.ui;
 import com.jobep.classroster.dto.Student;
 import java.util.List;
 public class ClassRosterView {
-    private UserIO io = new UserIOConsoleImpl();
+    public ClassRosterView(UserIO io){
+        this.io = io;
+    }
+    private UserIO io;
     
     public int printMenuAndGetSelection(){
         io.print("Main Menu");

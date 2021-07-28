@@ -14,9 +14,12 @@ import com.jobep.classroster.dao.*;
 import com.jobep.classroster.dto.Student;
 import java.util.List;
 public class ClassRosterController {
-    
-    private ClassRosterView view = new ClassRosterView();
-    private ClassRosterDao dao = new ClassRosterDaoFileImpl();
+    public ClassRosterController(ClassRosterDao dao, ClassRosterView view){
+        this.dao = dao;
+        this.view = view;
+    }
+    private ClassRosterView view;
+    private ClassRosterDao dao;
     private UserIO io = new UserIOConsoleImpl();
     
     public void run(){
