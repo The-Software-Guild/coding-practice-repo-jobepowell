@@ -47,6 +47,12 @@ public class ClassRosterView {
     public void displayRemoveStudentBanner(){
         io.print("=== Remove Student ===");
     }
+    public void displayExitBanner(){
+        io.print("Good Bye!!");
+    }
+    public void displayUnknownCommandBanner(){
+        io.print("Unknown Command!!!");
+    }
     public void displayCreateSuccessBanner(){
         io.readString("Student successfully created. Please hit enter to continue");
     }

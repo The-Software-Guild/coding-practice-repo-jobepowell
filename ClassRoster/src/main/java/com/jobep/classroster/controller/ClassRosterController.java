@@ -43,10 +43,10 @@ public class ClassRosterController {
                     keepGoing = false;
                     break;
                 default:
-                    io.print("UNKNOWN COMMAND");
+                    unknownCommand();
             }
         }
-    io.print("GOODBYE");
+    exitMessage();
     }
     
     private int getMenuSelection(){
@@ -75,5 +75,11 @@ public class ClassRosterController {
         String studentId = view.getStudentIdChoice();
         Student student = dao.getStudent(studentId);
         view.displayStudent(student);
+    }
+    private void unknownCommand(){
+        view.displayUnknownCommandBanner();
+    }
+    private void exitMessage(){
+        view.displayExitBanner();
     }
 }
