@@ -7,6 +7,7 @@ package com.jobep.classroster.dao;
 
 import com.jobep.classroster.dto.Student;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,10 +24,10 @@ public class ClassRosterDaoFileImpl implements ClassRosterDao{
         Student prevStudent = students.put(studentId,student);
         return prevStudent;
     }
-
+    
     @Override
     public List<Student> getAllStudents() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayList<Student>(students.values());
     }
 
     @Override
