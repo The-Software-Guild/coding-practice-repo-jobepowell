@@ -12,14 +12,17 @@ package com.jobep.classroster.controller;
 import com.jobep.classroster.ui.*;
 import com.jobep.classroster.dao.*;
 import com.jobep.classroster.dto.Student;
+import com.jobep.classroster.service.ClassRosterDataValidationException;
+import com.jobep.classroster.service.ClassRosterDuplicateIdException;
+import com.jobep.classroster.service.ClassRosterServiceLayer;
 import java.util.List;
 public class ClassRosterController {
-    public ClassRosterController(ClassRosterDao dao, ClassRosterView view){
-        this.dao = dao;
+    public ClassRosterController(ClassRosterServiceLayer service, ClassRosterView view){
+        this.service = service;
         this.view = view;
     }
     private ClassRosterView view;
-    private ClassRosterDao dao;
+    private ClassRosterServiceLayer service;
     private UserIO io = new UserIOConsoleImpl();
     
     public void run(){
@@ -51,7 +54,7 @@ public class ClassRosterController {
                 }
             }
             exitMessage();
-        } catch(ClassRosterDaoException e) {
+        } catch(ClassRosterPersistenceException e) {
             view.displayErrorMessage(e.getMessage());
         }
     }
@@ -60,27 +63,36 @@ public class ClassRosterController {
         return view.printMenuAndGetSelection();
     }
     
-    private void createStudent() throws ClassRosterDaoException{
+    private void createStudent() throws ClassRosterPersistenceException{
         view.displayCreateStudentBanner();
-        Student newStudent = view.getNewStudentInfo();
-        dao.addStudent(newStudent.getStudentId(),newStudent);
-        view.displayCreateSuccessBanner();
+        boolean hasErrors = false;
+        do{
+            Student currentStudent = view.getNewStudentInfo();
+            try{
+                service.createStudent(currentStudent);
+                view.displayCreateSuccessBanner();
+                hasErrors=false;
+            }catch(ClassRosterDuplicateIdException | ClassRosterDataValidationException e){
+                hasErrors = true;
+                view.displayErrorMessage(e.getMessage());
+            }
+        }while(hasErrors);
     }
-    private void removeStudent() throws ClassRosterDaoException{
+    private void removeStudent() throws ClassRosterPersistenceException{
         view.displayRemoveStudentBanner();
         String studentId = view.getStudentIdChoice();
-        Student removedStudent = dao.removeStudent(studentId);
+        Student removedStudent = service.removeStudent(studentId);
         view.displayRemoveResult(removedStudent);
     }
-    private void listStudents() throws ClassRosterDaoException{
+    private void listStudents() throws ClassRosterPersistenceException{
         view.displayDisplayAllBanner();
-        List<Student> studentList = dao.getAllStudents();
+        List<Student> studentList = service.getAllStudents();
         view.displayStudentList(studentList);
     }
-    private void viewStudent() throws ClassRosterDaoException{
+    private void viewStudent() throws ClassRosterPersistenceException{
         view.displayDisplayStudentBanner();
         String studentId = view.getStudentIdChoice();
-        Student student = dao.getStudent(studentId);
+        Student student = service.getStudent(studentId);
         view.displayStudent(student);
     }
     private void unknownCommand(){

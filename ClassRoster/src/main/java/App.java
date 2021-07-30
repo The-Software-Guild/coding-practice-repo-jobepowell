@@ -5,6 +5,8 @@
  */
 import com.jobep.classroster.controller.ClassRosterController;
 import com.jobep.classroster.dao.*;
+import com.jobep.classroster.service.ClassRosterServiceLayer;
+import com.jobep.classroster.service.ClassRosterServiceLayerImpl;
 import com.jobep.classroster.ui.*;
 /**
  *
@@ -15,7 +17,9 @@ public class App {
         UserIO myIo = new UserIOConsoleImpl();
         ClassRosterView myView = new ClassRosterView(myIo);
         ClassRosterDao myDao = new ClassRosterDaoFileImpl();
-        ClassRosterController controller = new ClassRosterController(myDao,myView);
+        ClassRosterAuditDao myAuditDao = new ClassRosterAuditDaoFileImpl();
+        ClassRosterServiceLayer myService = new ClassRosterServiceLayerImpl(myDao,myAuditDao);
+        ClassRosterController controller = new ClassRosterController(myService,myView);
         controller.run();
     }
 }

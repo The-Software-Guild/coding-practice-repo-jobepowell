@@ -3,22 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jobep.classroster.dao;
+package com.jobep.classroster.service;
+
+import com.jobep.classroster.dao.ClassRosterPersistenceException;
+import com.jobep.classroster.dto.Student;
+import java.util.List;
 
 /**
  *
  * @author powel
  */
-import com.jobep.classroster.dto.Student;
-import java.util.List;
 
-public interface ClassRosterDao {
-    Student addStudent(String studentId, Student student) throws ClassRosterPersistenceException;
+public interface ClassRosterServiceLayer {
+    
+    void createStudent(Student student) throws ClassRosterDuplicateIdException,ClassRosterDataValidationException,ClassRosterPersistenceException;
     
     List<Student> getAllStudents() throws ClassRosterPersistenceException;
     
     Student getStudent(String studentId) throws ClassRosterPersistenceException;
     
     Student removeStudent(String studentId) throws ClassRosterPersistenceException;
-    
 }

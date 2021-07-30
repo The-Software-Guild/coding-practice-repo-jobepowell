@@ -9,12 +9,6 @@ package com.jobep.classroster.dao;
  *
  * @author powel
  */
-public class ClassRosterDaoException extends Exception {
-    public ClassRosterDaoException(String message){
-        super(message);
-    }
-    
-    public ClassRosterDaoException(String message, Throwable cause){
-        super(message, cause);
-    }
+public interface ClassRosterAuditDao {
+    public void writeAuditEntry(String entry) throws ClassRosterPersistenceException;
 }
