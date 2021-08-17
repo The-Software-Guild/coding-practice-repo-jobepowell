@@ -4,22 +4,25 @@
  * and open the template in the editor.
  */
 import com.jobep.classroster.controller.ClassRosterController;
-import com.jobep.classroster.dao.*;
-import com.jobep.classroster.service.ClassRosterServiceLayer;
-import com.jobep.classroster.service.ClassRosterServiceLayerImpl;
-import com.jobep.classroster.ui.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  *
  * @author powel
  */
 public class App {
     public static void main(String[] args){
+        /*
         UserIO myIo = new UserIOConsoleImpl();
         ClassRosterView myView = new ClassRosterView(myIo);
         ClassRosterDao myDao = new ClassRosterDaoFileImpl();
         ClassRosterAuditDao myAuditDao = new ClassRosterAuditDaoFileImpl();
         ClassRosterServiceLayer myService = new ClassRosterServiceLayerImpl(myDao,myAuditDao);
         ClassRosterController controller = new ClassRosterController(myService,myView);
+        controller.run();
+        */
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ClassRosterController controller = ctx.getBean("controller", ClassRosterController.class);
         controller.run();
     }
 }
