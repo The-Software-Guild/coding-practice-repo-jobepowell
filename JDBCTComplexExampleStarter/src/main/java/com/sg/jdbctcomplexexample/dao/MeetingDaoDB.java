@@ -6,7 +6,7 @@
 package com.sg.jdbctcomplexexample.dao;
 
 import com.sg.jdbctcomplexexample.dao.EmployeeDaoDB.EmployeeMapper;
-import com.sg.jdbctcomplexexample.dao.roomDaoDB.RoomMapper;
+import com.sg.jdbctcomplexexample.dao.RoomDaoDB.RoomMapper;
 import com.sg.jdbctcomplexexample.entity.Employee;
 import com.sg.jdbctcomplexexample.entity.Meeting;
 import com.sg.jdbctcomplexexample.entity.Room;

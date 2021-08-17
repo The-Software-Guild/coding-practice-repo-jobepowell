@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author powel
  */
 @Repository
-public class roomDaoDB implements RoomDao{
+public class RoomDaoDB implements RoomDao{
     
     @Autowired
     JdbcTemplate jdbc;
